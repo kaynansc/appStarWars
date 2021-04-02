@@ -4,12 +4,12 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Container, ContainerTextCard } from './styles';
 
+
+
 const Card = (props) => {
   const {
     character
   } = props;
-
-  const [films, setFilms] = useState();
 
   const navigation = useNavigation();
 

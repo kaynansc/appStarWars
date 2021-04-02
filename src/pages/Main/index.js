@@ -1,11 +1,12 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Text, View, SafeAreaView, Image, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, FlatList } from 'react-native';
 
 import GetCharactersApi from '../../services/GetCharactersApi';
 
 import Header from '../../components/Header';
 import Card from '../../components/Card';
 import Loader from '../../components/Loader';
+import ModalLimitExceeded from '../../pages/ModalLimitExceeded';
 
 import { Container } from './styles';
 
@@ -14,13 +15,14 @@ const App = () => {
   const [characters, setCharacters] = useState();
   const [page, setPage] = useState(1);
   const [isLoadingNextPage, setLoadingNextPage] = useState(false);
+  const [isLimitExceeded, setIsLimitExceeded] = useState(false);
 
-  // Exibe um modal após 45 segundos de uso do aplicativo
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     alert('ola');
-  //   }, 45000)
-  // },[])
+  //Exibe um modal após 45 segundos de uso do aplicativo
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLimitExceeded(true);
+    }, 45000)
+  },[])
 
   useEffect(() => {
     const loadCharacters = async () => {
@@ -56,6 +58,8 @@ const App = () => {
     <SafeAreaView style={{flex: 1, backgroundColor: '#1C1C1C'}}>
       <Container>
         <Header/>
+
+        <ModalLimitExceeded visible={isLimitExceeded}/>
 
         {!characters ? <Loader/> :
           <FlatList
