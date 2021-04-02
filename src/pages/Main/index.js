@@ -6,7 +6,7 @@ import GetCharactersApi from '../../services/GetCharactersApi';
 import Header from '../../components/Header';
 import Card from '../../components/Card';
 import Loader from '../../components/Loader';
-import ModalLimitExceeded from '../../pages/ModalLimitExceeded';
+import ModalLimitExceeded from '../../components/ModalLimitExceeded';
 
 import { Container } from './styles';
 
