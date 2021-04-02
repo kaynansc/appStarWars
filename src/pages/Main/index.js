@@ -1,15 +1,13 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Text, View, SafeAreaView, Image, FlatList } from 'react-native';
 
-import GetCharactersApi from '../services/GetCharactersApi';
-import api from '../services/api';
+import GetCharactersApi from '../../services/GetCharactersApi';
+import api from '../../services/api';
 
-import Card from '../components/Card';
-import Loader from '../components/Loader';
+import Card from '../../components/Card';
+import Loader from '../../components/Loader';
 
 import { Container, Logo, Header } from './styles';
-
-
 
 const App = () => {
   const [countCharacters, setCountCharacters] = useState(0);
@@ -58,7 +56,7 @@ const App = () => {
     <SafeAreaView style={{flex: 1, backgroundColor: '#1C1C1C'}}>
       <Container>
         <Header>
-          <Logo source={require('../assets/star-wars-logo.png')}/>
+          <Logo source={require('../../assets/star-wars-logo.png')}/>
         </Header>
 
         {!characters ? <Loader/> :
