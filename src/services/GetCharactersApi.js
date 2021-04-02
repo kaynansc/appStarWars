@@ -5,7 +5,12 @@ const GetCharactersApi = async (page) => {
 
   const { count, next, previous, results } = response.data;
 
-  return { count, urlNextPage: next, urlPrevious: previous, characters: results};
+  return {
+    count,
+    urlNextPage: next,
+    urlPrevious: previous,
+    characters: results
+  };
 }
 
 export default GetCharactersApi;

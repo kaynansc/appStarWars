@@ -3,7 +3,7 @@ import { ActivityIndicator } from 'react-native';
 
 function Loader() {
   return (
-    <ActivityIndicator color='#ffff' size='large' />
+    <ActivityIndicator color='#FFC602' size='large' />
   );
 }
 

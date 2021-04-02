@@ -2,12 +2,12 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Text, View, SafeAreaView, Image, FlatList } from 'react-native';
 
 import GetCharactersApi from '../../services/GetCharactersApi';
-import api from '../../services/api';
 
+import Header from '../../components/Header';
 import Card from '../../components/Card';
 import Loader from '../../components/Loader';
 
-import { Container, Logo, Header } from './styles';
+import { Container } from './styles';
 
 const App = () => {
   const [countCharacters, setCountCharacters] = useState(0);
@@ -55,9 +55,7 @@ const App = () => {
   return(
     <SafeAreaView style={{flex: 1, backgroundColor: '#1C1C1C'}}>
       <Container>
-        <Header>
-          <Logo source={require('../../assets/star-wars-logo.png')}/>
-        </Header>
+        <Header/>
 
         {!characters ? <Loader/> :
           <FlatList
@@ -65,10 +63,7 @@ const App = () => {
             keyExtractor={item => item.name}
             renderItem={({item}) => (
               <Card
-                name={item.name}
-                gender={item.gender}
-                height={item.height}
-                mass={item.mass}
+                character={item}
               />
             )}
             style={{height: '90%'}}

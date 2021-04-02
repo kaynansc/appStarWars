@@ -1,10 +1,11 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 
-import Main from './pages/Main'
+import Navigation from './Navigation';
 
 export default function App() {
 
   return (
-    <Main/>
+    <Navigation/>
   )
 };
