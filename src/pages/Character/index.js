@@ -11,7 +11,7 @@ function Character({ route }) {
     <SafeAreaView style={{flex: 1, backgroundColor: '#1C1C1C'}}>
       <Container>
         <Header/>
-
+        
         <ContainerInfos>
             <ContainerTextInfo>
               <Text style={{fontSize: 22, fontWeight: 'bold', marginBottom: 20, color: '#FFC602'}}>{character.name}</Text>
