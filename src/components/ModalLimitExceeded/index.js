@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Image, Text, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { ModalBackground, ModalContainer, ModalText, ButtonPay, ButtonLater } from './styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 function ModalLimitExceeded({ visible }) {
+  const [hideModal, setHideModal] = useState(false);
+
+  async function handlePaymentApp() {
+    
+    const saveLocalStorageUserPaid = async () => {
+      try {
+        await AsyncStorage.setItem('@userpaid', 'true');
+      } catch {
+        alert('Houve um erro ao realizar o pagamento')
+      }
+    }
+
+    await saveLocalStorageUserPaid();
+    setHideModal(true);
+    alert('Parabéns, agora você tem acesso ao aplicativo por tempo ilimitado!');
+  };
+
+  function handleLater() {
+    
+  }
+
   return (
-    <Modal transparent={true} visible={visible}>
+    <Modal transparent={true} visible={ hideModal == true ? false : visible}>
         <ModalBackground>
           <ModalContainer>
             <ModalText>
@@ -19,13 +41,13 @@ function ModalLimitExceeded({ visible }) {
                 <Text style={{fontSize: 14, marginBottom: 10}}>Para continuar utilizando é necessário efetuar o pagamento:</Text>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <TouchableOpacity activeOpacity={0.6}>
+                  <TouchableOpacity activeOpacity={0.6} onPress={handlePaymentApp}>
                     <ButtonPay>
                       <Text style={{fontSize: 18, fontWeight: 'bold', color: 'white'}}>Pagar</Text>
                     </ButtonPay>
                   </TouchableOpacity>
 
-                  <TouchableOpacity activeOpacity={0.6}>
+                  <TouchableOpacity activeOpacity={0.6} onPress={handleLater}>
                     <ButtonLater>
                       <Text style={{fontSize: 18, fontWeight: 'bold', color: 'white'}}>Mais tarde</Text>
                     </ButtonLater>

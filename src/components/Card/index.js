@@ -4,8 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Container, ContainerTextCard } from './styles';
 
-
-
 const Card = (props) => {
   const {
     character

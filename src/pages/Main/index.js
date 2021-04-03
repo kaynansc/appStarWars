@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, FlatList } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import GetCharactersApi from '../../services/GetCharactersApi';
 
@@ -17,35 +18,66 @@ const App = () => {
   const [isLoadingNextPage, setLoadingNextPage] = useState(false);
   const [isLimitExceeded, setIsLimitExceeded] = useState(false);
 
-  //Exibe um modal após 45 segundos de uso do aplicativo
+  
   useEffect(() => {
-    setTimeout(() => {
-      setIsLimitExceeded(true);
-    }, 45000)
-  },[])
+    const verifyInLocalStorageIfUserPaid = async () => {
+      await AsyncStorage.setItem('@userpaid', 'null');
+      const value = await AsyncStorage.getItem('@userpaid');
 
-  useEffect(() => {
-    const loadCharacters = async () => {
-      const { count, characters } = await GetCharactersApi(page);
-
-      // Pego a quantidade de Personagens, para não ficar fazendo requisição após carregar todos
-      if (countCharacters == 0) {
-        setCountCharacters(count);
-      }
-
-      if (page == 1) {
-        setCharacters(characters);
-      }
-      else {
-        setCharacters(prevData => [...prevData, ...characters]);
+      // Caso o usuário já pagou
+      if (value == 'true') {
+        return;
       }
       
-      setLoadingNextPage(false);
+      // Caso o usuário já acessou e não pagou
+      if (value == 'false') {
+        setIsLimitExceeded(true);
+        return;
+      }
+
+      // Caso o usuário esteja entrando a primeira vez, será exibido um modal após 45 segundos de uso do aplicativo
+      setTimeout(() => {
+        setIsLimitExceeded(true);
+        
+        // Já atribuo como falso o pagamento;
+        const saveLocalStorageUserPaid = async () => {
+          await AsyncStorage.setItem('@userpaid', 'false');
+        }
+
+        saveLocalStorageUserPaid();
+      }, 45000)
     }
 
-    loadCharacters();
+    verifyInLocalStorageIfUserPaid();
+  }, [])
+
+  useEffect(() => {
+    try {
+      const loadCharacters = async () => {
+        const { count, characters } = await GetCharactersApi(page);
+
+        // Pego a quantidade de Personagens, para não ficar fazendo requisição após carregar todos
+        if (countCharacters == 0) {
+          setCountCharacters(count);
+        }
+
+        if (page == 1) {
+          setCharacters(characters);
+        }
+        else {
+          setCharacters(prevData => [...prevData, ...characters]);
+        }
+
+        setLoadingNextPage(false);
+      }
+
+      loadCharacters();
+    }
+    catch {
+      alert('Houve um erro ao buscar os personagens!')
+    }
   }, [page])
-  
+
   function handleNextPage() {
     // Só posso executar, caso ainda não carreguei todas as pages
     if (characters.length < countCharacters) {
@@ -54,30 +86,30 @@ const App = () => {
     }
   };
 
-  return(
-    <SafeAreaView style={{flex: 1, backgroundColor: '#1C1C1C'}}>
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#1C1C1C' }}>
       <Container>
-        <Header/>
+        <Header />
 
-        <ModalLimitExceeded visible={isLimitExceeded}/>
+        <ModalLimitExceeded visible={isLimitExceeded} />
 
-        {!characters ? <Loader/> :
+        {!characters ? <Loader /> :
           <FlatList
             data={characters}
             keyExtractor={item => item.name}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <Card
                 character={item}
               />
             )}
-            style={{height: '90%'}}
+            style={{ height: '90%' }}
             onEndReached={handleNextPage}
             initialNumToRender={10}
             onEndReachedThreshold={0.1}
           />
         }
 
-        {isLoadingNextPage && <Loader/>}
+        {isLoadingNextPage && <Loader />}
       </Container>
     </SafeAreaView>
 
