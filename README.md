@@ -1,4 +1,4 @@
-<img src="https://i.ibb.co/sjpTXF6/Captura-de-Tela-2021-04-03-a-s-14-44-43.png" height="400" title="hover text">
+<img src="https://i.ibb.co/sjpTXF6/Captura-de-Tela-2021-04-03-a-s-14-44-43.png" height="500" title="hover text">
 
 # appStarWars
 
