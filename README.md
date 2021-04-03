@@ -14,7 +14,7 @@ Esse desafio consiste em criar um aplicativo que vai listar os personagens de St
 <li>Utilizar React Native para desenvolver o aplicativo;
 <li>Consumir a api (https://swapi.dev/) para obter os dados dos personagens;
 <li>Mostrar qualquer informações do personagem, desde que exiba no mínimo 3 informações de cada um;
-<li>Após 45 segundos de uso do aplicativo, deve exibir um modal ou tela que bloqueie o uso do app e contenha uma mensagem pedindo que o usuário efetue um pagamento para continuar utilizando o mesmo.
+<li>Após 45 segundos de uso do aplicativo, deve exibir um modal que bloqueie o uso do app e contenha uma mensagem pedindo que o usuário efetue um pagamento para continuar utilizando o mesmo.
   
 # 🏆 Bonus Points! 
 <li>Paginação na listagem utilizando _scrolling_ infinito;
