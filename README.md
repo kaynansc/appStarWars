@@ -26,7 +26,6 @@ Esse desafio consiste em criar um aplicativo que vai listar os personagens de St
 <li>React Navigation
 <li>Styled Components
 <li>Consumo de API com Axios;
-<li>React Navigation
 <li>Paginação utilizando _scrolling_ infinito
 <li>Async Storage
 
