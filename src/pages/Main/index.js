@@ -21,16 +21,13 @@ const App = () => {
   
   useEffect(() => {
     const verifyInLocalStorageIfUserPaid = async () => {
-      await AsyncStorage.setItem('@userpaid', 'null');
-      const value = await AsyncStorage.getItem('@userpaid');
+      const isPaid = await AsyncStorage.getItem('@userpaid');
 
-      // Caso o usuário já pagou
-      if (value == 'true') {
+      if (isPaid) {
         return;
       }
       
-      // Caso o usuário já acessou e não pagou
-      if (value == 'false') {
+      if (isPaid == false) {
         setIsLimitExceeded(true);
         return;
       }
